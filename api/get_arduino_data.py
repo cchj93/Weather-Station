@@ -1,0 +1,40 @@
+''' 
+Script description:
+Get temperature and humidity from DHT11 since Arduino.
+Date: 07/10/2024
+Developer: Aslly Zuñiga
+'''
+#Import libraries
+import serial
+import time
+
+#Arduino port
+arduino_port = "COM3"
+arduino_bau = 9600
+
+service = serial.Serial(
+    arduino_port,
+    arduino_bau,
+    timeout = 1
+)
+
+time.sleep(1) #Delay
+
+while True:
+    #data = service.readline.decode('utf-8').strip() #A la derecha borra datos
+    data = service.readline().decode('utf-8').rstrip() #a la izquierda borra datos
+   
+    if data:
+        #print(data)
+        temperature, humidity = data.split(",")       
+        print(f"Temperature: {temperature}°C")
+        print(f"Humidity: {humidity}%")
+        
+        #Here Insert Into
+        # 1. Create new model data called test_data (en database.py)
+        #Fields: id,tem,hum,created_at
+        # 2. method to insert data into test_data(aqui en insert into data -- variables temperature y humidity -- datos guardados en la tabla)
+        # 3. Update method: Insert data when detect changes in temp or hum 
+        # 4. Create a menu option: List sensor data
+        # 5. Create new option Graphics with matplotlib
+    time.sleep(1)
